@@ -4,7 +4,7 @@ Download audio from YouTube with a simple command-line interface.
 # Install
 First make sure Python and pip are installed, then run:
 ```sh
-pip install git+ssh://git@github.com/carlthome/youtube-audio-scraper.git
+pip install git+https://github.com/carlthome/youtube-audio-scraper.git
 ```
 
 # Usage

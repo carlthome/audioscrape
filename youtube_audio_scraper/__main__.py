@@ -5,8 +5,11 @@ Download audio from YouTube.
 import argparse
 import re
 import sys
-from urllib.parse import urlencode
-from urllib.request import urlopen
+try:
+    from urllib.parse import urlparse
+    from urllib.request import urlopen
+except ImportError:
+    from urllib import urlencode, urlopen
 
 import pafy
 
