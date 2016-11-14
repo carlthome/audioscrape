@@ -13,3 +13,21 @@ youtube-audio-scrape "acoustic guitar"
 ```
 
 See `youtube-audio-scrape --help` for more details.
+
+## Python API
+You could also use the scraper directly in Python, as:
+
+```sh
+from youtube_audio_scraper import scrape
+
+scrape(query='Cerulean Crayons', 
+       include=['guitar'],
+       exclude=['remix'],
+       quiet=True)
+```
+
+# Uninstall
+After having downloaded some audio, remove the scraper by running:
+```sh
+pip uninstall youtube-audio-scraper
+```
