@@ -1,4 +1,2 @@
 # coding=utf-8
-"""
-YouTube audio scraper package.
-"""
+"""YouTube audio scraper package."""

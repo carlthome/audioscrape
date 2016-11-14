@@ -1,7 +1,5 @@
 # coding=utf-8
-"""
-Install YouTube audio scraper.
-"""
+"""Install YouTube audio scraper."""
 from setuptools import find_packages, setup
 
 setup(
@@ -15,7 +13,6 @@ setup(
     packages=find_packages(),
     install_requires=['youtube-dl', 'pafy'],
     entry_points={
-        'console_scripts': [
-            'youtube-audio-scrape = youtube_audio_scraper.__main__:main'
-        ]
+        'console_scripts':
+        ['youtube-audio-scrape = youtube_audio_scraper.__main__:main']
     })
