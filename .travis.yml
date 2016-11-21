@@ -8,4 +8,4 @@ install:
   - python setup.py install
 
 script:
-  - youtube-audio-scrape "cerulean crayons"
+  - audioscrape "cerulean crayons"
