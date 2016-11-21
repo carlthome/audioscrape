@@ -9,7 +9,7 @@ Scrape audio from various websites with a simple command-line interface.
 # Install
 First make sure Python and pip are installed, then run:
 ```sh
-pip install git+https://github.com/carlthome/audio-scraper.git
+pip install audioscrape
 ```
 
 # Usage
