@@ -27,4 +27,5 @@ setup(
     ],
     entry_points={
         'console_scripts': ['audioscrape = audioscrape.__main__:main']
-    })
+    },
+    include_package_data=True)
