@@ -46,10 +46,10 @@ def scrape(query, include, exclude, quiet, overwrite):
 
         # Always prefer highest quality audio.
         audio = video.getbestaudio()
-        
+
         # Skip existing files.
         if os.path.isfile(audio.filename) and not overwrite:
             continue
-            
+
         # Download audio to working directory.
         audio.download(quiet=quiet)

@@ -11,7 +11,9 @@ setup(
     author_email='carlthome@gmail.com',
     url='https://github.com/carlthome/audio-scraper',
     packages=find_packages(),
-    install_requires=['youtube-dl', 'pafy', 'tqdm', 'requests', 'soundcloud'],
+    install_requires=[
+        'youtube-dl', 'pafy', 'tqdm', 'requests', 'soundcloud', 'six'
+    ],
     entry_points={
         'console_scripts': ['audioscrape = audioscrape.__main__:main']
     })

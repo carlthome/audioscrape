@@ -1,13 +1,14 @@
 # coding=utf-8
 """Search SoundCloud playlists for audio."""
+from __future__ import absolute_import
+
 import os
 import string
 import sys
 
 import requests
-from tqdm import tqdm
-
 import soundcloud
+from tqdm import tqdm
 
 
 def sanitize(s):

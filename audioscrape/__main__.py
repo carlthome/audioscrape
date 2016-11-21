@@ -3,8 +3,7 @@
 import argparse
 import sys
 
-from . import youtube
-from . import soundcloud
+from . import soundcloud, youtube
 
 
 def scrape(query, include, exclude, quiet, overwrite):
