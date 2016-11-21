@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='audioscrape',
-    version='0.0.0',
+    version='0.0.1',
     description='Scrape audio from various websites with a simple command-line interface.',
     url='https://github.com/carlthome/audio-scraper',
     author='Carl Thomé',
