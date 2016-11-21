@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='audioscrape',
-    version='0.0.2',
+    version='0.0.4',
     description='Scrape audio from various websites with a simple command-line interface.',
     url='https://github.com/carlthome/audio-scraper',
     author='Carl Thomé',
@@ -28,4 +28,6 @@ setup(
     entry_points={
         'console_scripts': ['audioscrape = audioscrape.__main__:main']
     },
-    include_package_data=True)
+    include_package_data=True,
+    setup_requires=['pytest-runner'],
+    tests_require=['pytest'])

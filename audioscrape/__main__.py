@@ -6,7 +6,8 @@ import sys
 from . import soundcloud, youtube
 
 
-def scrape(query, include, exclude, quiet, overwrite):
+def download(query, include=None, exclude=None, quiet=False, overwrite=False):
+    """Scrape various websites for audio."""
     youtube.scrape(query, include, exclude, quiet, overwrite)
     soundcloud.scrape(query, include, exclude, quiet, overwrite)
 
@@ -52,7 +53,8 @@ def main(args=None):
     if not args.quiet:
         print('Downloading audio from "{}" videos tagged {} and not {}.'.
               format(args.query, args.include, args.exclude))
-    scrape(args.query, args.include, args.exclude, args.quiet, args.overwrite)
+    download(args.query, args.include, args.exclude, args.quiet,
+             args.overwrite)
     if not args.quiet:
         print("Finished downloading audio.")
 

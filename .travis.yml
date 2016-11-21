@@ -1,14 +1,27 @@
 language: python
 
 python:
-- 2.7
-- 3.5
+  - "3.5"
+  - "2.7"
+  
+cache:
+  directories:
+    - "$HOME/miniconda2"
+    - "$HOME/miniconda3"
 
-addons:
-  apt:
-    packages:
-    - pandoc
-    
+before_install:   
+  - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
+      wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
+      export MINICONDA="$HOME/miniconda2";
+    else
+      wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+      export MINICONDA="$HOME/miniconda3";
+    fi
+  - bash miniconda.sh -bfp $MINICONDA;
+  - export PATH="$MINICONDA/bin:$PATH"
+  - hash -r
+  - conda install -yc conda-forge pandoc
+
 install:
 - python setup.py install
 
@@ -23,9 +36,8 @@ deploy:
   provider: pypi
   user: carlthome
   skip_cleanup: true
-  password:
-    secure: K/s63xNK03irnQ8tl1f6cdY/nwv9HPzwp4waMig00OOixxQQZGO0oYJUC38L0DLWwfNOTCEj5mgvg5b88KLPtyoQlytOQNGMzYekcQ+uvQjCFlAWrYDs1fACgqzKkbT4gOMLbGxO5w/AEcrjgW4YdrZjsSPRcmWYTHY0rA67F4WMfrGN7IZBWIZvHPrFfF9qqAKS/91F/Mw5UmZWC1YMs8ZA5xsAVsrVyMa7eA3Keb6JY55sCFQwB5PY8XnW4DgrsF8hPm7ZUHC+AeSYhlpfDCl2mkTAgwnaNAYEcigtl9pnVbU6aXTbNPQhPIFsahPhaTN/qmvhN+DPJhGNIJiwFLE51ncHYZZZ99SwNI6BMjx1X6ax1FBSL2eQLcPWLjLNLwuWvW1c5Z5brce+sxEWigS/7vhJnZEGsbEDd6HF/RoFi9lHmfUXXnQG9H8vzC/MgCNBPjWJTBBKJm6WiezALWHVlBlv1gdTV1Y3jOe5e9p9ieXNaEfr1J3klnseF9R3+AeZoOzSoUo/U8GXfLP7kfUVAh0JIMb8CsZhYH4vtLRIZsAKmQCzstGd1u43QddDEnO3gUTkg9lFoTo6PpjgyDYeMcvx7h4t9Klw8BS4ojtqGBAtXxEM8WgzYn4+KkWAToP+17TqBupWrp3fJpk2V5PnPFHdMqYP2X7DQipeCYM=
   on:
     tags: true
-    distributions: sdist bdist_wheel
-    repo: carlthome/audio-scraper
+    branch: master
+  password:
+    secure: K/s63xNK03irnQ8tl1f6cdY/nwv9HPzwp4waMig00OOixxQQZGO0oYJUC38L0DLWwfNOTCEj5mgvg5b88KLPtyoQlytOQNGMzYekcQ+uvQjCFlAWrYDs1fACgqzKkbT4gOMLbGxO5w/AEcrjgW4YdrZjsSPRcmWYTHY0rA67F4WMfrGN7IZBWIZvHPrFfF9qqAKS/91F/Mw5UmZWC1YMs8ZA5xsAVsrVyMa7eA3Keb6JY55sCFQwB5PY8XnW4DgrsF8hPm7ZUHC+AeSYhlpfDCl2mkTAgwnaNAYEcigtl9pnVbU6aXTbNPQhPIFsahPhaTN/qmvhN+DPJhGNIJiwFLE51ncHYZZZ99SwNI6BMjx1X6ax1FBSL2eQLcPWLjLNLwuWvW1c5Z5brce+sxEWigS/7vhJnZEGsbEDd6HF/RoFi9lHmfUXXnQG9H8vzC/MgCNBPjWJTBBKJm6WiezALWHVlBlv1gdTV1Y3jOe5e9p9ieXNaEfr1J3klnseF9R3+AeZoOzSoUo/U8GXfLP7kfUVAh0JIMb8CsZhYH4vtLRIZsAKmQCzstGd1u43QddDEnO3gUTkg9lFoTo6PpjgyDYeMcvx7h4t9Klw8BS4ojtqGBAtXxEM8WgzYn4+KkWAToP+17TqBupWrp3fJpk2V5PnPFHdMqYP2X7DQipeCYM=
