@@ -1,5 +1,6 @@
 # coding=utf-8
 """Rip audio from YouTube videos."""
+import os
 import re
 
 import pafy
@@ -11,7 +12,7 @@ except ImportError:
     from urllib import urlencode, urlopen
 
 
-def scrape(query, include, exclude, quiet):
+def scrape(query, include, exclude, quiet, overwrite):
     """Search YouTube and download audio from discovered videos."""
 
     # Search YouTube for videos.
@@ -43,5 +44,12 @@ def scrape(query, include, exclude, quiet):
             if any(w in haystack for w in exclude):
                 continue
 
+        # Always prefer highest quality audio.
+        audio = video.getbestaudio()
+        
+        # Skip existing files.
+        if os.path.isfile(audio.filename) and not overwrite:
+            continue
+            
         # Download audio to working directory.
-        video.getbestaudio().download(quiet=quiet)
+        audio.download(quiet=quiet)

@@ -22,7 +22,7 @@ else:
     API_KEY = "81f430860ad96d8170e3bf1639d4e072"
 
 
-def scrape(query, include, exclude, quiet):
+def scrape(query, include, exclude, quiet, overwrite):
     """Search SoundCloud and download audio from discovered playlists."""
 
     # Launch SoundCloud client.
@@ -65,7 +65,7 @@ def scrape(query, include, exclude, quiet):
                 file = os.path.join(directory, sanitize(track.title) + '.mp3')
 
                 # Skip existing files.
-                if os.path.exists(file):
+                if os.path.exists(file) and not overwrite:
                     continue
 
                 # Skip tracks that are not allowed to be streamed.

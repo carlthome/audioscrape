@@ -7,9 +7,9 @@ from . import youtube
 from . import soundcloud
 
 
-def scrape(query, include, exclude, quiet):
-    youtube.scrape(query, include, exclude, quiet)
-    soundcloud.scrape(query, include, exclude, quiet)
+def scrape(query, include, exclude, quiet, overwrite):
+    youtube.scrape(query, include, exclude, quiet, overwrite)
+    soundcloud.scrape(query, include, exclude, quiet, overwrite)
 
 
 def main(args=None):
@@ -41,13 +41,19 @@ def main(args=None):
         default=False,
         action='store_true',
         help="hide progress reporting")
+    parser.add_argument(
+        '-o',
+        '--overwrite',
+        default=False,
+        action='store_true',
+        help="overwrite existing files")
     args = parser.parse_args()
 
     # Search YouTube and download audio from videos.
     if not args.quiet:
         print('Downloading audio from "{}" videos tagged {} and not {}.'.
               format(args.query, args.include, args.exclude))
-    scrape(args.query, args.include, args.exclude, args.quiet)
+    scrape(args.query, args.include, args.exclude, args.quiet, args.overwrite)
     if not args.quiet:
         print("Finished downloading audio.")
 
