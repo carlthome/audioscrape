@@ -16,13 +16,13 @@ def sanitize(s):
         if c in '-_.() {}{}'.format(string.ascii_letters, string.digits))
 
 
-if os.environ['SOUNDCLOUD_API_KEY']:
+if 'SOUNDCLOUD_API_KEY' in os.environ:
     API_KEY = os.environ['SOUNDCLOUD_API_KEY']
 else:
     API_KEY = "81f430860ad96d8170e3bf1639d4e072"
 
 
-def soundcloud(query, include, exclude, quiet):
+def scrape(query, include, exclude, quiet):
     """Search SoundCloud and download audio from discovered playlists."""
 
     # Launch SoundCloud client.

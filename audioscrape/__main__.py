@@ -3,10 +3,13 @@
 import argparse
 import sys
 
+from . import youtube
+from . import soundcloud
+
 
 def scrape(query, include, exclude, quiet):
-    youtube(query, include, exclude, quiet)
-    soundcloud(query, include, exclude, quiet)
+    youtube.scrape(query, include, exclude, quiet)
+    soundcloud.scrape(query, include, exclude, quiet)
 
 
 def main(args=None):

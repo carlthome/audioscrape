@@ -11,7 +11,7 @@ except ImportError:
     from urllib import urlencode, urlopen
 
 
-def youtube(query, include, exclude, quiet):
+def scrape(query, include, exclude, quiet):
     """Search YouTube and download audio from discovered videos."""
 
     # Search YouTube for videos.
