@@ -23,14 +23,15 @@ before_install:
   - conda install -yc conda-forge pandoc
 
 install:
-- python setup.py install
+  - python setup.py install
 
 script:
-- audioscrape "cerulean crayons"
+  - python setup.py test
+  - audioscrape "cerulean crayons"
 
 before_deploy:
-- pandoc --from=markdown --to=rst --output=README.rst README.md
-- rm README.md
+  - pandoc --from=markdown --to=rst --output=README.rst README.md
+  - rm README.md
 
 deploy:
   provider: pypi
