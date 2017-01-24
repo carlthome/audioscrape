@@ -22,7 +22,7 @@ See `audioscrape --help` for more details.
 ## Python API
 You could also use the scraper directly in Python, as:
 
-```py
+```python
 import audioscrape
 
 audioscrape.download(query='Cerulean Crayons', 
