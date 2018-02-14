@@ -1,37 +1,15 @@
 language: python
-
 python:
-  - "3.5"
-  - "2.7"
-  
-cache:
-  directories:
-    - "$HOME/miniconda2"
-    - "$HOME/miniconda3"
-    
-before_install:   
-  - if [ "$TRAVIS_PYTHON_VERSION" == "2.7" ]; then
-      wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
-      export MINICONDA="$HOME/miniconda2";
-    else
-      wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
-      export MINICONDA="$HOME/miniconda3";
-    fi
-  - bash miniconda.sh -bfp "$MINICONDA"
-  - export PATH="$MINICONDA/bin:$PATH"
-  - conda install -yc conda-forge pandoc
-
+- 3.6
+- 3.5
+- 2.7
+cache: pip
 install:
-  - python setup.py install
-
+- pip install .
+- pip install pytest pytest-pep8 pytest-cov
 script:
-  - python setup.py test
-  - audioscrape "cerulean crayons"
-
-before_deploy:
-  - pandoc --from=markdown --to=rst --output=README.rst README.md
-  - rm README.md
-
+- pytest --pep8 --cov=. tests
+- audioscrape "cerulean crayons"
 deploy:
   provider: pypi
   user: carlthome
