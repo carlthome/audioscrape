@@ -25,10 +25,7 @@ def scrape(query, include, exclude, quiet, overwrite):
     for video_id in video_ids:
 
         # Ignore broken videos for any reason and fail silently.
-        try:
-            video = pafy.new(video_id)
-        except:
-            continue
+        video = pafy.new(video_id)
 
         # Collect video metadata.
         haystack = " ".join([video.title, video.description, video.category] +
