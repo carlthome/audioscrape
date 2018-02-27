@@ -12,7 +12,7 @@ def download(query, include=None, exclude=None, quiet=False, overwrite=False):
     soundcloud.scrape(query, include, exclude, quiet, overwrite)
 
 
-def cli(args):
+def cli(args=None):
     """CLI for scraping audio."""
 
     parser = argparse.ArgumentParser()
