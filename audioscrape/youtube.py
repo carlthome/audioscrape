@@ -6,7 +6,7 @@ import re
 import pafy
 
 try:
-    from urllib.parse import urlparse, urlencode
+    from urllib.parse import urlencode
     from urllib.request import urlopen
 except ImportError:
     from urllib import urlencode, urlopen
