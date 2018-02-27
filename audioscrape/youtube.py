@@ -17,7 +17,7 @@ def scrape(query, include, exclude, quiet, overwrite):
 
     # Search YouTube for videos.
     url = 'http://youtube.com/results?' + urlencode({'search_query': query})
-    html = urlopen(url).read().decode()
+    html = urlopen(url).read().decode('utf-8')
     video_ids = re.findall(r'href=\"\/watch\?v=(.{11})', html)
 
     # Go through all found videos.
