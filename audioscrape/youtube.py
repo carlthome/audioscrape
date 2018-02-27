@@ -24,7 +24,7 @@ def scrape(query, include, exclude, quiet, overwrite):
     # Go through all found videos.
     for video_id in video_ids:
 
-        # Ignore broken videos for any reason and fail silently.
+        # Fetch metadata and available streams.
         video = pafy.new(video_id)
 
         # Collect video metadata.
