@@ -32,5 +32,5 @@ setup(
         'six',
     ],
     entry_points={
-        'console_scripts': ['audioscrape = audioscrape.__main__:main']
+        'console_scripts': ['audioscrape = audioscrape.__main__:cli']
     })
