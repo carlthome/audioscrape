@@ -5,9 +5,10 @@ python:
 cache: pip
 install:
 - pip install .
-- pip install pytest pytest-pep8 pytest-cov pytest-flake8
+- pip install pytest-cov flake8
 script:
-- pytest --pep8 --cov=. --flake8
+- pytest --cov=audioscrape
+- flake8
 - audioscrape "cerulean crayons"
 deploy:
   provider: pypi
