@@ -9,4 +9,4 @@ def test():
         query='Cerulean Crayons',
         include=['guitar'],
         exclude=['remix'],
-        quiet=True)
+        quiet=False)
