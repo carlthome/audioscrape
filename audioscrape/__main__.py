@@ -12,28 +12,28 @@ def download(query, include=None, exclude=None, quiet=False, overwrite=False):
     soundcloud.scrape(query, include, exclude, quiet, overwrite)
 
 
-def main(args=None):
+def cli(args):
     """CLI for scraping audio."""
-    if args is None:
-        args = sys.argv[1:]
 
-    # Parse program arguments.
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        'query', default="Cerulean Crayons", nargs='?', help="search terms")
+        'query',
+        default="Cerulean Crayons",
+        nargs='?',
+        help="search terms")
     parser.add_argument(
         '-i',
         '--include',
         default=[],
         action='append',
-        help="only download audio with this tag (this flag can be used multiple times)"
+        help="only download audio with this tag"
     )
     parser.add_argument(
         '-e',
         '--exclude',
         default=[],
         action='append',
-        help="ignore results with this tag (this flag can be used multiple times)"
+        help="ignore results with this tag"
     )
     parser.add_argument(
         '-q',
@@ -49,7 +49,6 @@ def main(args=None):
         help="overwrite existing files")
     args = parser.parse_args()
 
-    # Search YouTube and download audio from videos.
     if not args.quiet:
         print('Downloading audio from "{}" videos tagged {} and not {}.'.
               format(args.query, args.include, args.exclude))
@@ -60,4 +59,4 @@ def main(args=None):
 
 
 if __name__ == "__main__":
-    main()
+    cli(sys.argv[1:])

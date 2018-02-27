@@ -4,7 +4,6 @@ import audioscrape
 
 
 def test():
-    # A basic system test.
     audioscrape.download(
         query='Cerulean Crayons',
         include=['guitar'],

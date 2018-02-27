@@ -12,9 +12,8 @@ from tqdm import tqdm
 
 
 def sanitize(s):
-    return ''.join(
-        c for c in s
-        if c in '-_.() {}{}'.format(string.ascii_letters, string.digits))
+    valid = '-_.() {}{}'.format(string.ascii_letters, string.digits)
+    return ''.join(c for c in s if c in valid)
 
 
 if 'SOUNDCLOUD_API_KEY' in os.environ:
@@ -38,19 +37,21 @@ def scrape(query, include, exclude, quiet, overwrite):
 
     # Search SoundCloud for playlists.
     for playlists in pagination(
-            client.get('/playlists',
-                       q=query,
-                       tags=','.join(include) if include else '',
-                       linked_partitioning=1,
-                       representation='compact')):
+            client.get(
+                '/playlists',
+                q=query,
+                tags=','.join(include) if include else '',
+                linked_partitioning=1,
+                representation='compact')):
 
         # Download playlists.
         for playlist in playlists.collection:
 
             # Skip playlists containing filter terms.
-            haystack = (playlist.title +
-                        (' ' + playlist.description
-                         if playlist.description else '')).lower()
+            metadata = [playlist.title]
+            if playlist.description:
+                metadata.append(playlist.description)
+            haystack = ' '.join(metadata).lower()
             if any(needle in haystack for needle in exclude):
                 continue
 
@@ -80,9 +81,10 @@ def scrape(query, include, exclude, quiet, overwrite):
                     continue
 
                 # Download track.
-                r = requests.get(client.get(track.stream_url,
-                                            allow_redirects=False).location,
-                                 stream=True)
+                r = requests.get(
+                    client.get(track.stream_url,
+                               allow_redirects=False).location,
+                    stream=True)
                 total_size = int(r.headers['content-length'])
                 chunk_size = 1000000  # 1 MB chunks
                 with open(file, 'wb') as f:
