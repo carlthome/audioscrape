@@ -2,8 +2,9 @@
 """Rip audio from YouTube videos."""
 import os
 import re
-import subprocess
+
 import pafy
+from . import audioconvert as audc
 
 try:
     from urllib.parse import urlencode
@@ -52,18 +53,15 @@ def scrape(query, include, exclude, quiet, overwrite, fileformat):
         # Download audio to working directory.
         audio.download(quiet=quiet)
 
-        # Since pafy.Stream object (audio) does not appear to grab audio content itself until Stream.download(), 
-        #   we must convert the audio after download with ffmpeg. 
+        '''
+        Since pafy.Stream object (audio) does not appear to grab audio content
+        itself until Stream.download(), we must convert
+        the audio after download with ffmpeg.
+        '''
         # Convert to fileformat using ffmpeg
         if fileformat:
             audio_name = str(audio.title)
             audio_extension = str(audio.extension)
-            command = ['ffmpeg', '-hide_banner', '-loglevel', 'panic', # quiet ffmpeg stdout
-                       '-i', "./{0}.{1}".format(audio_name, audio_extension), # input file to convert
-                       '-f', '{}'.format(fileformat), # output fileformat type
-                       '-ac', '1', # mono channel
-                       '-ar', '16000', # sampling rate 16000Hz
-                       '-vn', # only want audio, no video
-                       "./{0}/{1}.{0}".format(fileformat, audio_name.replace(" ","_"))] # output file 
-            subprocess.call(command)
-           
+            audc.ffmpeg_convert('.'.join([audio_name, audio_extension]),
+                                audio_name,
+                                fileformat)

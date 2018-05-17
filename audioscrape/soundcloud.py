@@ -5,11 +5,11 @@ from __future__ import absolute_import
 import os
 import string
 import sys
-import subprocess
 
 import requests
 import soundcloud
 from tqdm import tqdm
+from . import audioconvert as audc
 
 
 def sanitize(s):
@@ -96,15 +96,12 @@ def scrape(query, include, exclude, quiet, overwrite, fileformat):
                             unit='MB',
                             file=sys.stdout):
                         f.write(data)
-                # Appears that soundcloud streams are mp3 only, so we'll convert original mp3 
-                #   to user defined file format with ffmpeg.
+                '''
+                Appears that soundcloud streams are mp3 only, so we'll
+                convert original mp3 to user defined file format with ffmpeg.
+                '''
                 # Convert to fileformat using ffmpeg
                 if fileformat:
-                    command = ['ffmpeg', '-hide_banner', '-loglevel', 'panic', # quiet ffmpeg stdout
-                            '-i', "./{}".format(file), # input file to convert
-                            '-f', '{}'.format(fileformat), # output fileformat type
-                            '-ac', '1', # mono channel
-                            '-ar', '16000', # sampling rate 16000Hz
-                            '-vn', # only want audio, no video
-                            "./{0}/{1}.{0}".format(fileformat, sanitize(track.title).replace(" ","_"))] # output file 
-                    subprocess.call(command)
+                    audc.ffmpeg_convert(file,
+                                        sanitize(track.title),
+                                        fileformat)
