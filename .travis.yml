@@ -4,7 +4,7 @@ python:
 - 2.7
 cache: pip
 install:
-- pip install .
+- pip install -e .
 - pip install pytest-cov flake8
 script:
 - pytest --cov=audioscrape
@@ -13,7 +13,6 @@ script:
 deploy:
   provider: pypi
   user: carlthome
-  skip_cleanup: true
   on:
     tags: true
     branch: master
