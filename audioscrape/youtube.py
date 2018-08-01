@@ -57,8 +57,9 @@ def scrape(query, include, exclude, quiet, overwrite, fileformat):
         Since pafy.Stream object (audio) does not appear to grab audio content
         itself until Stream.download(), we must convert
         the audio after download with ffmpeg.
+        
+        Convert to fileformat using ffmpeg
         '''
-        # Convert to fileformat using ffmpeg
         if fileformat:
             audio_name = str(audio.title)
             audio_extension = str(audio.extension)

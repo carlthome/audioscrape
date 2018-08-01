@@ -10,7 +10,7 @@ from . import soundcloud, youtube
 def download(query, include=None, exclude=None, quiet=False,
              overwrite=False, fileformat=None):
     """Scrape various websites for audio."""
-    # create subdirectory for converted audio files if --fileformat tag set
+    # Create subdirectory for converted audio files if --fileformat tag set
     if fileformat:
         if not os.path.exists(fileformat):
                 os.makedirs(fileformat)

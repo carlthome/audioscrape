@@ -96,10 +96,6 @@ def scrape(query, include, exclude, quiet, overwrite, fileformat):
                             unit='MB',
                             file=sys.stdout):
                         f.write(data)
-                '''
-                Appears that soundcloud streams are mp3 only, so we'll
-                convert original mp3 to user defined file format with ffmpeg.
-                '''
                 # Convert to fileformat using ffmpeg
                 if fileformat:
                     audc.ffmpeg_convert(file,
