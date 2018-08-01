@@ -8,4 +8,6 @@ def test():
         query='Cerulean Crayons',
         include=['guitar'],
         exclude=['remix'],
-        quiet=False)
+        quiet=False,
+        fileformat='wav'
+        )
