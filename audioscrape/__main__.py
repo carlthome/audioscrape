@@ -17,24 +17,19 @@ def cli(args=None):
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        'query',
-        default="Cerulean Crayons",
-        nargs='?',
-        help="search terms")
+        'query', default="Cerulean Crayons", nargs='?', help="search terms")
     parser.add_argument(
         '-i',
         '--include',
         default=[],
         action='append',
-        help="only download audio with this tag"
-    )
+        help="only download audio with this tag")
     parser.add_argument(
         '-e',
         '--exclude',
         default=[],
         action='append',
-        help="ignore results with this tag"
-    )
+        help="ignore results with this tag")
     parser.add_argument(
         '-q',
         '--quiet',
@@ -50,8 +45,9 @@ def cli(args=None):
     args = parser.parse_args()
 
     if not args.quiet:
-        print('Downloading audio from "{}" videos tagged {} and not {}.'.
-              format(args.query, args.include, args.exclude))
+        print(
+            'Downloading audio from "{}" videos tagged {} and not {}.'.format(
+                args.query, args.include, args.exclude))
     download(args.query, args.include, args.exclude, args.quiet,
              args.overwrite)
     if not args.quiet:
