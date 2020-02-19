@@ -3,14 +3,12 @@
 import argparse
 import sys
 
-from . import soundcloud, youtube
+from audioscrape import youtube
 
 
 def download(query, include=None, exclude=None, quiet=False, overwrite=False):
     """Scrape various websites for audio."""
     youtube.scrape(query, include, exclude, quiet, overwrite)
-    soundcloud.scrape(query, include, exclude, quiet, overwrite)
-
 
 def cli(args=None):
     """CLI for scraping audio."""
