@@ -2,15 +2,15 @@
 
 Scrape audio from various websites with a simple command-line interface.
 
-# Install
+## Usage
 
-First make sure Python and pip are installed, then run:
+First make sure Python is installed, then run:
 
 ```sh
 pip install audioscrape
 ```
 
-# Usage
+Then you can use the program as:
 
 ```sh
 audioscrape "acoustic guitar"
@@ -18,19 +18,25 @@ audioscrape "acoustic guitar"
 
 See `audioscrape --help` for more details.
 
-## Python API
+### Python API
 
-You could also use the scraper directly in Python, as:
+You can also use the scraper directly in Python, as:
 
 ```python
 import audioscrape
 
-audioscrape.download(query='Cerulean Crayons',
-                     include=['guitar'],
-                     exclude=['remix'],
+audioscrape.download(query="Cerulean Crayons",
+                     include=["guitar"],
+                     exclude=["remix"],
                      quiet=True)
 ```
 
-## SoundCloud API key and download limits
+## Develop
 
-This program uses SoundCloud's official Python API which requires a registered API key. SoundCloud says an API key can be used for 15,000 requests per any 24-hour time window, and a key has been included in the program. However, in case the key stops working, register another one [as described by SoundCloud here](https://github.com/soundcloud/soundcloud-python#basic-use), and use the scraper after setting the environment variable `SOUNDCLOUD_API_KEY`, as `SOUNDCLOUD_API_KEY="your_key" audioscrape "piano music"`.
+First clone the repo and set it as working directory. Then install the package in development mode (preferably within its own virtual environment):
+
+```sh
+pip install -e .
+```
+
+If you have `direnv` installed, you can run `direnv allow` to automatically create and activate a Python virtual environment when you enter the directory.
