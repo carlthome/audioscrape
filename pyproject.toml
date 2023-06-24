@@ -17,7 +17,7 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
 ]
-dependencies = ["youtube-dl", "pafy", "tqdm", "requests", "soundcloud"]
+dependencies = ["youtube-dl", "pafy", "tqdm", "requests", "soundcloud-lib"]
 dynamic = ["version"]
 
 [project.scripts]
@@ -26,3 +26,6 @@ audioscrape = "audioscrape.__main__:cli"
 [project.urls]
 Homepage = "https://github.com/carlthome/audio-scraper"
 Bugs = "https://github.com/carlthome/audioscrape/issues"
+
+[tool.black]
+line-length = 120
