@@ -33,5 +33,8 @@ audioscrape = "audioscrape.__main__:cli"
 Homepage = "https://github.com/carlthome/audio-scraper"
 Bugs = "https://github.com/carlthome/audioscrape/issues"
 
+[tool.setuptools_scm]
+write_to = "audioscrape/version.py"
+
 [tool.black]
 line-length = 120
