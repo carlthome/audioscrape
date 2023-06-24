@@ -94,3 +94,5 @@ ENV/
 .idea
 *.iml
 
+
+.direnv
