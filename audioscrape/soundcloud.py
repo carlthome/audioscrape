@@ -1,6 +1,4 @@
-# coding=utf-8
 """Search SoundCloud playlists for audio."""
-from __future__ import absolute_import
 
 import os
 import string
@@ -12,7 +10,7 @@ from tqdm import tqdm
 
 
 def sanitize(s):
-    valid = '-_.() {}{}'.format(string.ascii_letters, string.digits)
+    valid = f'-_.() {string.ascii_letters}{string.digits}'
     return ''.join(c for c in s if c in valid)
 
 

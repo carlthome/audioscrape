@@ -1,4 +1,3 @@
-# coding=utf-8
 """Rip audio from YouTube videos."""
 import os
 import re
