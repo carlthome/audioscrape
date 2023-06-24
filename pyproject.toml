@@ -19,7 +19,7 @@ classifiers = [
     "Programming Language :: Python :: 3.5",
     "Programming Language :: Python :: 3.6",
 ]
-dependencies = ["youtube-dl", "pafy", "tqdm", "requests", "soundcloud", "six"]
+dependencies = ["youtube-dl", "pafy", "tqdm", "requests", "soundcloud"]
 dynamic = ["version"]
 
 [project.scripts]
