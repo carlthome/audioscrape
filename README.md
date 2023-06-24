@@ -1,13 +1,17 @@
 # Audioscrape
+
 Scrape audio from various websites with a simple command-line interface.
 
 # Install
+
 First make sure Python and pip are installed, then run:
+
 ```sh
 pip install audioscrape
 ```
 
 # Usage
+
 ```sh
 audioscrape "acoustic guitar"
 ```
