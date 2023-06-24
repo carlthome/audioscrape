@@ -1,9 +1,4 @@
 # Audioscrape
-[![Build Status](https://travis-ci.org/carlthome/audio-scraper.svg?branch=master)](https://travis-ci.org/carlthome/audio-scraper)
-[![PyPI](https://img.shields.io/pypi/v/audioscrape.svg)](https://pypi.python.org/pypi/audioscrape)
-[![PyPI](https://img.shields.io/pypi/pyversions/audioscrape.svg)](http://py3readiness.org/)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
-
 Scrape audio from various websites with a simple command-line interface.
 
 # Install
