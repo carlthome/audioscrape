@@ -1,0 +1,17 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audioscrape:
+    uses: carlthome/workflows/.github/workflows/python.yaml@main
+    with:
+      package-name: audioscrape

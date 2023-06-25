@@ -1,53 +1,86 @@
-# coding=utf-8
 """Rip audio from YouTube videos."""
-import os
+import logging
 import re
+from urllib.parse import urlencode
+from urllib.request import urlopen
 
-import pafy
+import youtube_dl
 
-try:
-    from urllib.parse import urlencode
-    from urllib.request import urlopen
-except ImportError:
-    from urllib import urlencode, urlopen
+logger = logging.getLogger(__name__)
 
 
-def scrape(query, include, exclude, quiet, overwrite):
+def _filter_video(video_info, include, exclude) -> bool:
+    """Return True if video should be skipped.
+
+    If video lacks a required include term in its metadata, skip it.
+
+    If video has any required exclude term in its metadata, skip it.
+    """
+    title = video_info["title"]
+    description = video_info["description"]
+    tags = video_info["tags"]
+    categories = video_info["categories"]
+    metadata = [title, description, *tags, *categories]
+    haystack = " ".join(metadata).lower()
+
+    if include:
+        if all(w not in haystack for w in include):
+            return True
+
+    if exclude:
+        if any(w in haystack for w in exclude):
+            return True
+    return False
+
+
+def scrape(query, include, exclude, quiet, verbose, overwrite, limit):
     """Search YouTube and download audio from discovered videos."""
 
     # Search YouTube for videos.
-    url = 'http://youtube.com/results?' + urlencode({'search_query': query})
-    html = urlopen(url).read().decode('utf-8')
-    video_ids = re.findall(r'href=\"\/watch\?v=(.{11})', html)
+    query_string = urlencode({"search_query": query})
+    url = f"http://youtube.com/results?{query_string}"
 
-    # Go through all found videos.
-    for video_id in video_ids:
+    # Get video IDs from search results.
+    with urlopen(url) as response:
+        html = response.read().decode("utf-8")
+        logger.debug(html)
 
-        # Fetch metadata and available streams.
-        video = pafy.new(video_id)
+    # Search for video IDs in HTML response.
+    video_ids = re.findall(r"\"\/watch\?v=(.{11})", html)
 
-        # Collect video metadata.
-        metadata = video.keywords + [
-            video.title, video.author, video.description, video.category
-        ]
-        haystack = ' '.join(metadata).lower()
-
-        # Don't download audio if video lacks a required term in its metadata.
-        if include:
-            if all(w not in haystack for w in include):
-                continue
-
-        # Don't download audio if video has a forbidden term in its metadata.
-        if exclude:
-            if any(w in haystack for w in exclude):
-                continue
+    # Go through each video ID and download audio.
+    for video_id in video_ids[:limit]:
+        # Construct video URL.
+        logger.info(f"Getting video: {video_id}")
+        video_url = f"https://www.youtube.com/watch?v={video_id}"
 
         # Always prefer highest quality audio.
-        audio = video.getbestaudio()
+        download_options = {
+            "format": "bestaudio/best",
+            "verbose": verbose,
+            "quiet": quiet,
+            "nooverwrites": not overwrite,
+            "writeinfojson": True,
+            "writethumbnail": True,
+            "writedescription": True,
+            "postprocessors": [
+                {
+                    "key": "FFmpegExtractAudio",
+                    "preferredcodec": "opus",
+                    "preferredquality": "192",
+                }
+            ],
+        }
+        ydl = youtube_dl.YoutubeDL(download_options)
 
-        # Skip existing files.
-        if os.path.isfile(audio.filename) and not overwrite:
+        # Fetch metadata.
+        video_info = ydl.extract_info(video_url, download=False)
+        logger.debug(video_info)
+
+        # TODO Use builtin functionality in youtube-dl for this instead.
+        # Inspect video metadata to determine if video should be skipped.
+        if _filter_video(video_info, include, exclude):
             continue
 
-        # Download audio to working directory.
-        audio.download(quiet=quiet)
+        # Download audio.
+        ydl.download([video_url])

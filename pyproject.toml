@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=61", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "audioscrape"
+authors = [{ name = "Carl Thomé", email = "carlthome@gmail.com" }]
+description = "Scrape online audio with a simple command-line interface."
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = ["audio", "music", "sound"]
+license = { file = "LICENSE" }
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Multimedia :: Sound/Audio",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "youtube-dl @ git+https://github.com/ytdl-org/youtube-dl@fa7f0effbe4e14fcf70e1dc4496371c9862b64b9",
+    "pafy",
+    "tqdm",
+    "requests",
+    "soundcloud-lib",
+]
+dynamic = ["version"]
+
+[project.scripts]
+audioscrape = "audioscrape.__main__:cli"
+
+[project.urls]
+Homepage = "https://github.com/carlthome/audio-scraper"
+Bugs = "https://github.com/carlthome/audioscrape/issues"
+
+[tool.setuptools_scm]
+write_to = "audioscrape/version.py"
+
+[tool.black]
+line-length = 120
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"

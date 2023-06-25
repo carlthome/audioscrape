@@ -94,3 +94,6 @@ ENV/
 .idea
 *.iml
 
+
+.direnv
+version.py
