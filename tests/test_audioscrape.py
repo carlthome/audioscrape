@@ -4,7 +4,10 @@ import audioscrape
 
 def test():
     audioscrape.download(
-        query='Cerulean Crayons',
-        include=['guitar'],
-        exclude=['remix'],
-        quiet=False)
+        query="Cerulean Crayons",
+        include=["guitar"],
+        exclude=["remix"],
+        quiet=False,
+        verbose=False,
+        overwrite=False,
+    )
