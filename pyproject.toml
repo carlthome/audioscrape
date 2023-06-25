@@ -7,7 +7,7 @@ name = "audioscrape"
 authors = [{ name = "Carl Thomé", email = "carlthome@gmail.com" }]
 description = "Scrape online audio with a simple command-line interface."
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 keywords = ["audio", "music", "sound"]
 license = { file = "LICENSE" }
 classifiers = [
