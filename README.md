@@ -40,3 +40,17 @@ pip install -e .
 ```
 
 If you have `direnv` installed, you can run `direnv allow` to automatically create and activate a Python virtual environment when you enter the directory.
+
+### Test
+
+```sh
+pytest
+```
+
+### Lint
+
+```sh
+pre-commit run --all-files
+```
+
+Or `pre-commit install` to run automatically on `git commit`.
