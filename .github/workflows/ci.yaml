@@ -14,8 +14,96 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  package-name: "audioscrape"
+
 jobs:
-  audioscrape:
-    uses: carlthome/workflows/.github/workflows/python.yaml@main
-    with:
-      package-name: audioscrape
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+          cache: pip
+
+      - name: Install build tool
+        run: pip install build
+
+      - name: Build ${{ env.package-name }}
+        run: python -m build
+
+      - name: Upload ${{ env.package-name }} package
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.package-name }}
+          path: ./dist/
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+          cache: pip
+
+      - name: Download ${{ env.package-name }} package
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.package-name }}
+          path: ./dist/
+
+      - name: Install ${{ env.package-name }}
+        run: pip install ./dist/*.whl
+
+      - name: Install test runner
+        run: pip install pytest pytest-cov
+
+      - name: Run unit tests
+        run: pytest --cov=${{ env.package-name }}
+
+  test-publish:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main')
+    runs-on: ubuntu-latest
+    needs: test
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/${{ env.package-name }}
+    permissions:
+      id-token: write
+    steps:
+      - name: Download ${{ env.package-name }} package
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.package-name }}
+          path: ./dist/
+
+      - name: Publish ${{ env.package-name }} to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+
+  publish:
+    if: github.event_name == 'release' && github.event.action == 'published'
+    runs-on: ubuntu-latest
+    needs: test
+    environment:
+      name: pypi
+      url: https://pypi.org/p/${{ env.package-name }}
+    permissions:
+      id-token: write
+    steps:
+      - name: Download ${{ env.package-name }} package
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.package-name }}
+          path: ./dist/
+
+      - name: Publish ${{ env.package-name }} to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
