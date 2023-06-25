@@ -10,4 +10,5 @@ def test():
         quiet=False,
         verbose=False,
         overwrite=False,
+        limit=1,
     )

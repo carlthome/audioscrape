@@ -33,7 +33,7 @@ def _filter_video(video_info, include, exclude) -> bool:
     return False
 
 
-def scrape(query, include, exclude, quiet, verbose, overwrite):
+def scrape(query, include, exclude, quiet, verbose, overwrite, limit):
     """Search YouTube and download audio from discovered videos."""
 
     # Search YouTube for videos.
@@ -46,9 +46,10 @@ def scrape(query, include, exclude, quiet, verbose, overwrite):
         logger.debug(html)
 
     # Search for video IDs in HTML response.
-    for match in re.finditer(r"\"\/watch\?v=(.{11})", html):
-        video_id = match.group(1)
+    video_ids = re.findall(r"\"\/watch\?v=(.{11})", html)
 
+    # Go through each video ID and download audio.
+    for video_id in video_ids[:limit]:
         # Construct video URL.
         logger.info(f"Getting video: {video_id}")
         video_url = f"https://www.youtube.com/watch?v={video_id}"

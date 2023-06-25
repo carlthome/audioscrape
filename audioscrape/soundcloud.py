@@ -25,7 +25,7 @@ else:
 SEARCH_URL = "https://api.soundcloud.com/search?q={query}&facet=model&limit={limit}&offset=0&linked_partitioning=1&client_id={client_id}"
 
 
-def scrape(query, include, exclude, quiet, verbose, overwrite):
+def scrape(query, include, exclude, quiet, verbose, overwrite, limit):
     """Search SoundCloud and download audio from discovered playlists."""
 
     url = SEARCH_URL.format(query=query, limit=1, client_id=API_KEY)
