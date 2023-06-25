@@ -1,12 +1,15 @@
 """Search SoundCloud playlists for audio."""
-
+import json
+import logging
 import os
 import string
 import sys
 
 import requests
-import soundcloud
+from sclib import Playlist, SoundcloudAPI, Track
 from tqdm import tqdm
+
+logger = logging.getLogger(__name__)
 
 
 def sanitize(s):
@@ -19,12 +22,55 @@ if "SOUNDCLOUD_API_KEY" in os.environ:
 else:
     API_KEY = "81f430860ad96d8170e3bf1639d4e072"
 
+SEARCH_URL = "https://api.soundcloud.com/search?q={query}&facet=model&limit={limit}&offset=0&linked_partitioning=1&client_id={client_id}"
 
-def scrape(query, include, exclude, quiet, overwrite):
+
+def scrape(query, include, exclude, quiet, verbose, overwrite):
     """Search SoundCloud and download audio from discovered playlists."""
 
+    url = SEARCH_URL.format(query=query, limit=1, client_id=API_KEY)
+
+    breakpoint()
+    print(url)
+    while url:
+        response = requests.get(url)
+
+        if response.status_code != 200:
+            logger.error(
+                "Failed to search SoundCloud.",
+                extra={"response": response, "query": query},
+            )
+
+        try:
+            doc = json.loads(response.text)
+        except json.JSONDecodeError:
+            logger.exception("Could not parse JSON.")
+
+        for entity in doc["collection"]:
+            if entity["kind"] == "track":
+                yield entity["permalink_url"]
+
+        url = doc.get("next_href")
+
     # Launch SoundCloud client.
-    client = soundcloud.Client(client_id=API_KEY)
+    client = SoundcloudAPI()
+
+    # Search SoundCloud for tracks.
+    url = SoundcloudAPI.SEARCH_URL.format(
+        query=query,
+        client_id=client_id,
+        limit=limit,
+        offset=offset,
+    )
+
+    track = client.resolve("https://soundcloud.com/itsmeneedle/sunday-morning")
+
+    assert type(track) is Track
+
+    filename = f"./{track.artist} - {track.title}.mp3"
+
+    with open(filename, "wb+") as file:
+        track.write_mp3_to(file)
 
     # Generator for yielding all results pages.
     def pagination(x):
