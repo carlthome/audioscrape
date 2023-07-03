@@ -26,6 +26,9 @@ dependencies = [
 ]
 dynamic = ["version"]
 
+[project.optional-dependencies]
+tests = ["pytest", "pytest-cov"]
+
 [project.scripts]
 audioscrape = "audioscrape.__main__:cli"
 
