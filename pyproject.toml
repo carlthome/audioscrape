@@ -46,3 +46,6 @@ line-length = 120
 [tool.pytest.ini_options]
 log_cli = true
 log_cli_level = "INFO"
+
+[tool.autoflake]
+remove-all-unused-imports = true
