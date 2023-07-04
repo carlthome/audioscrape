@@ -4,7 +4,7 @@ import re
 from urllib.parse import urlencode
 from urllib.request import urlopen
 
-import youtube_dl
+import yt_dlp as yt
 
 logger = logging.getLogger(__name__)
 
@@ -37,7 +37,7 @@ def scrape(query, include, exclude, quiet, verbose, overwrite, limit):
     """Search YouTube and download audio from discovered videos."""
 
     # Search YouTube for videos.
-    query_string = urlencode({"search_query": query})
+    query_string = urlencode({"search_query": f"{query} {include}"})
     url = f"http://youtube.com/results?{query_string}"
 
     # Get video IDs from search results.
@@ -66,12 +66,12 @@ def scrape(query, include, exclude, quiet, verbose, overwrite, limit):
             "postprocessors": [
                 {
                     "key": "FFmpegExtractAudio",
-                    "preferredcodec": "opus",
+                    "preferredcodec": "ogg",
                     "preferredquality": "192",
                 }
             ],
         }
-        ydl = youtube_dl.YoutubeDL(download_options)
+        ydl = yt.YoutubeDL(download_options)
 
         # Fetch metadata.
         video_info = ydl.extract_info(video_url, download=False)

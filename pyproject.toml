@@ -18,11 +18,12 @@ classifiers = [
     "Programming Language :: Python :: 3",
 ]
 dependencies = [
-    "youtube-dl @ git+https://github.com/ytdl-org/youtube-dl@fa7f0effbe4e14fcf70e1dc4496371c9862b64b9",
-    "tqdm",
+    "mediapipe",
     "requests",
     "soundcloud-lib",
-    "mediapipe",
+    "soundfile",
+    "tqdm",
+    "yt-dlp",
 ]
 dynamic = ["version"]
 
