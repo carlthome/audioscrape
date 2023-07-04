@@ -6,7 +6,7 @@ import string
 import sys
 
 import requests
-from sclib import Playlist, SoundcloudAPI, Track
+from sclib import SoundcloudAPI, Track
 from tqdm import tqdm
 
 logger = logging.getLogger(__name__)
