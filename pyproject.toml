@@ -18,12 +18,12 @@ classifiers = [
     "Programming Language :: Python :: 3",
 ]
 dependencies = [
-    "mediapipe",
-    "requests",
-    "soundcloud-lib",
-    "soundfile",
-    "tqdm",
-    "yt-dlp",
+    "mediapipe >= 0.10.1",
+    "requests >= 2.31.0",
+    "soundcloud-lib >= 0.6.1",
+    "soundfile >= 0.12.1",
+    "tqdm >= 4.65.0",
+    "yt-dlp >= 2023.6.22",
 ]
 dynamic = ["version"]
 
