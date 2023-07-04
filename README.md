@@ -25,10 +25,12 @@ You can also use the scraper directly in Python, as:
 ```python
 import audioscrape
 
-audioscrape.download(query="Cerulean Crayons",
-                     include=["guitar"],
-                     exclude=["remix"],
-                     quiet=True)
+audioscrape.download(
+    query="Cerulean Crayons",
+    include=["guitar"],
+    exclude=["remix"],
+    quiet=True,
+)
 ```
 
 ## Develop
