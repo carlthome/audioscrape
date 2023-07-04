@@ -39,6 +39,7 @@ Bugs = "https://github.com/carlthome/audioscrape/issues"
 
 [tool.setuptools_scm]
 write_to = "audioscrape/version.py"
+version_scheme = "release-branch-semver"
 local_scheme = "no-local-version"
 
 [tool.black]
