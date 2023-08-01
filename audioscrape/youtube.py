@@ -66,7 +66,7 @@ def scrape(query, include, exclude, quiet, verbose, overwrite, limit):
             "postprocessors": [
                 {
                     "key": "FFmpegExtractAudio",
-                    "preferredcodec": "ogg",
+                    "preferredcodec": "vorbis",
                     "preferredquality": "192",
                 }
             ],
