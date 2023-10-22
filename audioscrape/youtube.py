@@ -63,13 +63,6 @@ def scrape(query, include, exclude, quiet, verbose, overwrite, limit):
             "writeinfojson": True,
             "writethumbnail": True,
             "writedescription": True,
-            "postprocessors": [
-                {
-                    "key": "FFmpegExtractAudio",
-                    "preferredcodec": "vorbis",
-                    "preferredquality": "192",
-                }
-            ],
         }
         ydl = yt.YoutubeDL(download_options)
 
