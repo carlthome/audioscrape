@@ -13,7 +13,7 @@ on:
       - main
 
 env:
-  PACKAGE: audioscrape
+  PACKAGE_NAME: audioscrape
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -27,13 +27,13 @@ jobs:
     if: ${{ github.event_name == 'pull_request' }}
     uses: carlthome/workflows/.github/workflows/python.yaml@main
     with:
-      package-name: ${{ env.PACKAGE }}
+      package-name: $PACKAGE_NAME
 
   pre-release:
     if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main') }}
     uses: carlthome/workflows/.github/workflows/python.yaml@main
     with:
-      package-name: ${{ env.PACKAGE }}
+      package-name: $PACKAGE_NAME
       package-index-name: TestPyPI
       package-index-url: https://test.pypi.org/legacy
 
@@ -41,6 +41,6 @@ jobs:
     if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
     uses: carlthome/workflows/.github/workflows/python.yaml@main
     with:
-      package-name: ${{ env.PACKAGE }}
+      package-name: $PACKAGE_NAME
       package-index-name: PyPI
       package-index-url: https://pypi.org
