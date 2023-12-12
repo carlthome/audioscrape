@@ -56,3 +56,9 @@ pre-commit run --all-files
 ```
 
 Or `pre-commit install` to run automatically on `git commit`.
+
+### Publish
+
+```sh
+gh release create
+```
