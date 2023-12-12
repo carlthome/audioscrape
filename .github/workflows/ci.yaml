@@ -19,25 +19,34 @@ concurrency:
 permissions:
   id-token: write
 
+env:
+  PACKAGE_NAME: audioscrape
+
 jobs:
   test:
     if: ${{ github.event_name == 'pull_request' }}
     uses: carlthome/workflows/.github/workflows/python.yaml@main
     with:
-      package-name: audioscrape
+      package-name: ${{ env.PACKAGE_NAME }}
 
   pre-release:
     if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main') }}
     uses: carlthome/workflows/.github/workflows/python.yaml@main
     with:
-      package-name: audioscrape
+      package-name: ${{ env.PACKAGE_NAME }}
       package-index-name: TestPyPI
-      package-index-url: https://test.pypi.org/legacy
+      package-index-url: https://test.pypi.org
+      package-index-upload-url: https://test.pypi.org/legacy/
+    secrets:
+      password: ${{ secrets.TEST_PYPI_API_TOKEN }}
 
   release:
     if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
     uses: carlthome/workflows/.github/workflows/python.yaml@main
     with:
-      package-name: audioscrape
+      package-name: ${{ env.PACKAGE_NAME }}
       package-index-name: PyPI
       package-index-url: https://pypi.org
+      package-index-upload-url: https://upload.pypi.org/legacy/
+    secrets:
+      password: ${{ secrets.PYPI_API_TOKEN }}
