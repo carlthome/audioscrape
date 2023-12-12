@@ -38,7 +38,7 @@ audioscrape.download(
 First clone the repo and set it as working directory. Then install the package in development mode (preferably within its own virtual environment):
 
 ```sh
-pip install -e .[tests]
+pip install -e ".[tests]"
 ```
 
 If you have `direnv` installed, you can run `direnv allow` to automatically create and activate a Python virtual environment when you enter the directory.
