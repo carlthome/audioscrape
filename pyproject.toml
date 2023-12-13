@@ -38,6 +38,7 @@ Homepage = "https://github.com/carlthome/audio-scraper"
 Bugs = "https://github.com/carlthome/audioscrape/issues"
 
 [tool.setuptools_scm]
+version_file = "audioscrape/version.py"
 local_scheme = "no-local-version"
 
 [tool.black]
