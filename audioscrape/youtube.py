@@ -1,4 +1,5 @@
 """Rip audio from YouTube videos."""
+
 import logging
 import re
 from urllib.parse import urlencode

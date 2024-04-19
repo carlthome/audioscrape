@@ -1,4 +1,5 @@
 """Download audio."""
+
 import argparse
 import logging
 import sys
